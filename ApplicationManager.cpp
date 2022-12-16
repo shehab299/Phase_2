@@ -1,5 +1,8 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectangle.h"
+#include "Actions\AddSquare.h"
+#include "Actions\AddCircle.h"
+#include "Actions\AddHexagon.h"
 #include "Actions\ShowShapes.h"
 #include "Actions\ShowColors.h"
 
@@ -36,6 +39,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		case rectangle:
 			pAct = new AddRectangle(this);
+			break;
+
+		case circle:
+			pAct = new AddCircle(this);
+			break;
+
+		case square:
+			pAct = new AddSquare(this);
+			break;
+
+		case hexagon:
+			pAct = new AddHexagon(this);
 			break;
 
 		case ADD:

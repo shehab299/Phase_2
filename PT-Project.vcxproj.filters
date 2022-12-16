@@ -152,6 +152,12 @@
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Actions\AddRectangle.cpp" />
+    <ClCompile Include="Figures\CSquare.cpp" />
+    <ClCompile Include="Figures\CCircle.cpp" />
+    <ClCompile Include="Figures\CHexagon.cpp" />
+    <ClCompile Include="Actions\AddCircle.cpp" />
+    <ClCompile Include="Actions\AddHexagon.cpp" />
+    <ClCompile Include="Actions\AddSquare.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -243,6 +249,12 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddRectangle.h" />
+    <ClInclude Include="Figures\CSquare.h" />
+    <ClInclude Include="Figures\CCircle.h" />
+    <ClInclude Include="Figures\CHexagon.h" />
+    <ClInclude Include="Actions\AddCircle.h" />
+    <ClInclude Include="Actions\AddHexagon.h" />
+    <ClInclude Include="Actions\AddSquare.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
