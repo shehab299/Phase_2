@@ -2,7 +2,6 @@
 #define CTRI_H
 
 #include "CFigure.h"
-
 class CTriangle : public CFigure
 {
 private:
@@ -14,6 +13,7 @@ public:
 	virtual bool IsSelected(Point p) const;
 	CTriangle(Point, Point,Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
+	virtual void PrintInfo(Output* pOut) const;
 };
 
 #endif
