@@ -10,6 +10,8 @@ private:
 	Point Corner2;
 	Point Corner3;
 public:
+	float CalcArea(Point p1, Point p2, Point p3)const;
+	virtual bool IsSelected(Point p) const;
 	CTriangle(Point, Point,Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 };
