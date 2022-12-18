@@ -1,18 +1,21 @@
+#pragma once
+
 #include "Action.h"
 
-//Add Rectangle Action class
-class AddTriangleAction: public Action
+//Add triangle Action class
+class AddTriangle : public Action
 {
 private:
-	Point P1,P2,P3; //Triangle Corners
-	GfxInfo TrianglefGfxInfo;
+	Point P1, P2,P3,Pc; //Triangle Corners
+	GfxInfo TriGfxInfo;
 public:
-	AddTriangleAction(ApplicationManager *pApp);
+	AddTriangle(ApplicationManager* pApp);
 
-	//Reads Triangle parameters
+	//Reads triangle parameters
 	virtual void ReadActionParameters();
-	
-	//Add Triangle to the ApplicationManager
-	virtual void Execute() ;
-	
+
+	//Add triangle to the ApplicationManager
+	virtual void Execute();
+
 };
+
