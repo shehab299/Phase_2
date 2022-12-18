@@ -138,8 +138,8 @@ void Output::CreateAdditionalItemsBar(ADDIONAL_MODE mode) const
 {
 	UI.Additional_Items_Mode = mode;
 	//draw the Bar
-	color fill_color = (mode == NOTHING) ? UI.BkGrndColor : UI.ToolBarColor;
-	color draw_color = (mode == NOTHING) ? UI.BkGrndColor : UI.DrawColor;
+	color fill_color = UI.ToolBarColor;
+	color draw_color = UI.DrawColor;
 
 	pWind->SetPen(draw_color, 1);
 	pWind->SetBrush(fill_color);
