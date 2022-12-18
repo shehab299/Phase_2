@@ -1,5 +1,4 @@
 #include "CTriangle.h"
-
 float CTriangle::CalcArea(Point p1, Point p2, Point p3)const
 {
 	return abs( p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y)+ (p1.x * (p2.y - p3.y) ) / 2.0);
@@ -26,4 +25,11 @@ void CTriangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawTriangle to draw a triangle on the screen	
 	pOut->DrawTriangle(Corner1, Corner2,Corner3, FigGfxInfo, Selected);
+	ID = FigCount;
+	PrintInfo(pOut);
+}
+
+void CTriangle::PrintInfo(Output* pOut) const
+{
+	pOut->PrintMessage("TRIANG\t" +ID + Corner1.x + "\t" + Corner1.y + "\t" + Corner2.x + "\t" + Corner2.y + "\t" + Corner3.x + "\t" + Corner3.y + "\t");
 }
