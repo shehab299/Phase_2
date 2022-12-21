@@ -7,9 +7,13 @@ class CHexagon : public CFigure
 {
 private:
 	Point Center;
+	int length;
 public:
 	CHexagon(Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
+	virtual void PrintInfo(Output* pOut) const;
+	virtual bool IsBelong(Output* pOut, Point p) const;	//check whether point is on fig
+
 };
 
 #endif
