@@ -13,6 +13,9 @@ void CSquare::Draw(Output* pOut) const
 	pOut->DrawSqr(Center, FigGfxInfo, Selected);
 }
 
+
+
+
 void CSquare::PrintInfo(Output* pOut) const
 {
 	pOut->PrintMessage("SQUARE  ID   " + to_string(ID) + "Center(" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
@@ -21,5 +24,23 @@ void CSquare::PrintInfo(Output* pOut) const
 bool CSquare::IsBelong( Point p)const
 {
 	return((p.x > Center.x - (length / 2.0)) && (p.x < Center.x + (length / 2.0)) && (p.y > Center.y - (length / 2.0)) && (p.y < Center.y + (length / 2.0)));
+}
+
+void CSquare::Save(ofstream& OutFile)
+{
+	string type = to_string(SQUARE);
+	string id = to_string(ID);
+	int draw_color = TranslateToInt(FigGfxInfo.DrawClr);
+	int fill = (FigGfxInfo.isFilled) ? TranslateToInt(FigGfxInfo.FillClr) : -1;
+
+	if (OutFile.is_open()) {
+		OutFile << setw(1) << type << " ";
+		OutFile << setw(3) << id << " ";
+		OutFile << setw(3) << Center.x << " ";
+		OutFile << setw(3) << Center.y << " ";
+		OutFile << setw(3) << draw_color << " ";
+		OutFile << setw(3) << fill << " ";
+		OutFile << '\n';
+	}
 }
 

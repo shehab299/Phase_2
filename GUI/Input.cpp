@@ -85,7 +85,7 @@ ActionType Input::GetUserAction() const
 		int LowerBound = UI.ToolBarHeight + 1;
 		if(y >= LowerBound && y <= UpperBound)
 		{
-			if(UI.Additional_Items_Mode==NOTHING)
+			if(UI.Additional_Items_Mode==NOTHING_MODE)
 				return DRAWING_AREA;
 			else
 			{
@@ -98,7 +98,7 @@ ActionType Input::GetUserAction() const
 				//	return EMPTY;
 
 
-				if (UI.Additional_Items_Mode == COLORS)
+				if (UI.Additional_Items_Mode == COLORS_MODE)
 				{
 					switch (ClickedItemOrder)
 					{

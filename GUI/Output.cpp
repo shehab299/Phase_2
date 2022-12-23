@@ -5,7 +5,7 @@ Output::Output()
 {
 
 	UI.InterfaceMode = MODE_DRAW;
-	UI.Additional_Items_Mode = NOTHING;
+	UI.Additional_Items_Mode = NOTHING_MODE;
 
 	UI.width = 1250;
 	UI.height = 650;
@@ -146,14 +146,14 @@ void Output::CreateAdditionalItemsBar(ADDIONAL_MODE mode) const
 	pWind->DrawRectangle(0, UI.ToolBarHeight + 1, UI.width, UI.ToolBarHeight + 1 + UI.AdditionalItemsHeight);
 
 	//check the mode and show the suitable icons
-	if (mode == COLORS)
+	if (mode == COLORS_MODE)
 	{
 		for (int i = 0; i < COLORS_COUNT; i++)
 		{
 			pWind->DrawImage(ColorsItems[i], i * (UI.MenuItemWidth + 5), UI.ToolBarHeight + 2, UI.MenuItemWidth, UI.AdditionalMenuItemHeight);
 		}
 	}
-	else if (mode == SHAPES)
+	else if (mode == SHAPES_MODE)
 	{
 		for (int i = 0; i < SHAPES_COUNT; i++)
 		{
@@ -167,10 +167,10 @@ void Output::CreatePlayToolBar() const
 {
 
 	UI.InterfaceMode = MODE_PLAY;
-	CreateAdditionalItemsBar(NOTHING);
+	CreateAdditionalItemsBar(NOTHING_MODE);
 	pWind->SetBrush(UI.ToolBarColor);
 	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);
-	UI.Additional_Items_Mode = NOTHING;
+	UI.Additional_Items_Mode = NOTHING_MODE;
 
 	//Draw menu item one image at a time
 

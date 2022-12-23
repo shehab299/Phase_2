@@ -10,10 +10,10 @@ private:
 	int length ;
 public:
 	CSquare(Point, GfxInfo FigureGfxInfo);
-	int Setlength(int l);
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
 	virtual bool IsBelong(Point p)const;
+	virtual void Save(ofstream& OutFile);
 };
 
 #endif

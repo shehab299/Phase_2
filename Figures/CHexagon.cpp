@@ -43,4 +43,22 @@ bool CHexagon::IsBelong( Point p) const
 		
 }
 
+void CHexagon::Save(ofstream& OutFile)
+{
+	string type = to_string(HEXAGON);
+	string id = to_string(ID);
+	int draw_color = TranslateToInt(FigGfxInfo.DrawClr);
+	int fill = (FigGfxInfo.isFilled) ? TranslateToInt(FigGfxInfo.FillClr) : -1;
+
+	if (OutFile.is_open()) {
+		OutFile << setw(1) << type << " ";
+		OutFile << setw(3) << id << " ";
+		OutFile << setw(3) << Center.x << " ";
+		OutFile << setw(3) << Center.y << " ";
+		OutFile << setw(3) << draw_color << " ";
+		OutFile << setw(3) << fill << " ";
+		OutFile << '\n';
+	}
+}
+
 

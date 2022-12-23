@@ -21,7 +21,8 @@ enum COLORS // colors of the colors Menu
 	ORANGE_,
 	GREEN_,
 	BLACK_,
-	COLORS_COUNT
+	COLORS_COUNT,
+	UNDEFINED
 };
 
 enum SHAPES // shapes in the shapes Menu
@@ -36,9 +37,9 @@ enum SHAPES // shapes in the shapes Menu
 
 enum ADDIONAL_MODE // modes for the additional items menu 
 {
-	NOTHING,
-	COLORS,
-	SHAPES
+	NOTHING_MODE,
+	COLORS_MODE,
+	SHAPES_MODE
 };
 
 enum DrawMenuItem // The items of the Draw menu 

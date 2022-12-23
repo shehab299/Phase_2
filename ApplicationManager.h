@@ -6,6 +6,7 @@
 #include "GUI\input.h"
 #include "GUI\output.h"
 
+
 //Main class that manages everything in the application.
 class ApplicationManager
 {
@@ -26,21 +27,27 @@ public:
 	~ApplicationManager();
 	
 	// -- Action-Related Functions
+	
 	//Reads the input command from the user and returns the corresponding action type
 	ActionType GetUserAction() const;
 	void ExecuteAction(ActionType) ; //Creates an action and executes it
 	
 	// -- Figures Management Functions
-	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
-	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 
+	void AddFigure(CFigure* pFig); //Adds a new figure to the FigList
+	CFigure* GetFigure(int x, int y) const; //Search for a figure given a point 
 	void SetSelectedFig(CFigure* Fig);
-
 	CFigure* GetSelectedFig();
-		
+
+	// -- FILE MANAGEMENT
+
+	bool SaveAll(const string&);
+	bool LoadAll(const string&);
+
+
 	// -- Interface Management Functions
-	Input *GetInput() const; //Return pointer to the input
-	Output *GetOutput() const; //Return pointer to the output
+	Input* GetInput() const; //Return pointer to the input
+	Output* GetOutput() const; //Return pointer to the output
 	void UpdateInterface() const;	//Redraws all the drawing window	
 };
 
