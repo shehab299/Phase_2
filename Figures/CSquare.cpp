@@ -18,7 +18,7 @@ void CSquare::PrintInfo(Output* pOut) const
 	pOut->PrintMessage("SQUARE  ID   " + to_string(ID) + "Center(" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
 }
 
-bool CSquare::IsBelong(Output* pOut, Point p)const
+bool CSquare::IsBelong( Point p)const
 {
 	return((p.x > Center.x - (length / 2.0)) && (p.x < Center.x + (length / 2.0)) && (p.y > Center.y - (length / 2.0)) && (p.y < Center.y + (length / 2.0)));
 }

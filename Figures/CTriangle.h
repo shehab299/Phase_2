@@ -14,7 +14,7 @@ public:
 	float CalcArea(Point p1, Point p2, Point p3)const;
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
-	virtual bool IsBelong(Output* pOut, Point p) const;
+	virtual bool IsBelong(Point p) const;
 };
 
 #endif

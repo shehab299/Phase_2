@@ -18,10 +18,9 @@ void CHexagon::PrintInfo(Output* pOut) const
 }
 
 
-bool CHexagon::IsBelong(Output* pOut, Point p) const
+bool CHexagon::IsBelong( Point p) const
 {
-	int xMirror = abs(p.x - Center.x);
-	int yMirror = abs(p.y - Center.y);
+	int xMirror = abs(p.x - Center.x), yMirror ( abs(p.y - Center.y));
 	return (yMirror >= 0 && yMirror <= ((sqrt(3) / 2.0) * (length))) && (xMirror >= 0) && (xMirror < ((1.5 * length) - 2 * yMirror / sqrt(3)));
 	/*  
 	* Non optimized soluation

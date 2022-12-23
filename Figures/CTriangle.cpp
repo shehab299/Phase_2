@@ -20,12 +20,12 @@ void CTriangle::Draw(Output* pOut) const
 
 void CTriangle::PrintInfo(Output* pOut) const
 {
-	pOut->PrintMessage("Triangle ID: " + to_string(ID) + " Corner 1 (" + to_string(Corner1.x) + "," + to_string(Corner1.y)
+	pOut->PrintMessage("Triangle   ID : " + to_string(ID) + " Corner 1 (" + to_string(Corner1.x) + "," + to_string(Corner1.y)
 		+ ") Corner 2 (" + to_string(Corner2.x) + "," + to_string(Corner2.y) + ") Corner 3 (" + to_string(Corner3.x)
 		+ "," + to_string(Corner3.y) + ")");
 }
 
-bool CTriangle::IsBelong(Output* pOut, Point p) const
+bool CTriangle::IsBelong( Point p) const
 {	
 	float Area = CalcArea(Corner1, Corner2, Corner3);
 	float Area1 = CalcArea(p, Corner1, Corner2);

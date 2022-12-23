@@ -16,7 +16,7 @@ void CCircle::PrintInfo(Output* pOut) const
 
 }
 
-bool CCircle::IsBelong(Output* pOut, Point p) const
+bool CCircle::IsBelong( Point p) const
 {
 	//check if the distance between the point and the center less than or equal the radius
 	int r = sqrt(pow((Center.x - RadiusP.x), 2) + pow((Center.y - RadiusP.y), 2));

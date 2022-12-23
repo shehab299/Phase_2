@@ -18,7 +18,7 @@ void CRectangle::PrintInfo(Output* pOut) const
 
 }
 
-bool CRectangle::IsBelong(Output* pOut, Point p) const
+bool CRectangle::IsBelong(Point p) const
 {
 	int Xmin = (Corner1.x < Corner2.x) ? Corner1.x : Corner2.x;
 	int Xmax = (Corner1.x > Corner2.x) ? Corner1.x : Corner2.x;

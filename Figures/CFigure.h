@@ -19,7 +19,7 @@ public:
 	void SetID(int id);
 	int GetID();
 	void SetSelected(bool s);	//select/unselect the figure
-	virtual bool IsBelong(Output* pOut, Point p) const = 0;	//check whether point is on fig
+	virtual bool IsBelong(Point p) const = 0;	//check whether point is on fig
 	bool IsSelected();
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color

@@ -19,7 +19,7 @@ int CFigure::GetID()
 void CFigure::SetSelected(bool s)
 {	Selected = s; }
 
-bool CFigure::IsBelong(Output* pOut,Point p) const
+bool CFigure::IsBelong(Point p) const
 {
 	return 0; 
 }

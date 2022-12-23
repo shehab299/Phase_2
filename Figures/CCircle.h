@@ -12,7 +12,7 @@ public:
 	CCircle(Point, Point, GfxInfo FigGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
-	virtual bool IsBelong(Output* pOut, Point p) const;	//check whether point is on fig
+	virtual bool IsBelong( Point p) const;	//check whether point is on fig
 
 };
 
