@@ -38,41 +38,38 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.FillClr = Fclr; 
 }
 
-
-/*string CFigure::GetDrawClr()
+int TranslateToInt(color & Color)
 {
-
-	if (FigGfxInfo.FillClr == BLACK)
-		return "BLACK";
-	else if (FigGfxInfo.FillClr == RED)
-		return "RED";
-	else if (FigGfxInfo.FillClr == YELLOW)
-		return "YELLOW";
-	else if (FigGfxInfo.FillClr == ORANGE)
-		return "ORANGE";
-	else if (FigGfxInfo.FillClr == GREEN)
-		return "GREEN";
+	if (Color == RED)
+		return RED_;
+	else if (Color == GREEN)
+		return GREEN_;
+	else if (Color == BLUE)
+		return BLUE_;
+	else if (Color == YELLOW)
+		return YELLOW_;
+	else if (Color == ORANGE)
+		return ORANGE_;
+	else if (Color == BLACK)
+		return BLACK_;
 	else
-		return "BLUE";
+		return UNDEFINED;
+}
+
+color TranslateToColor(int color_num)
+{
+	switch (color_num)
+	{
+	case BLACK_: return BLACK;
+	case YELLOW_: return YELLOW;
+	case BLUE_: return BLUE;
+	case ORANGE_: return ORANGE;
+	case RED_: return RED;
+	case GREEN_: return GREEN;
+	default:
+		return UI.BkGrndColor;
+	}
 }
 
 
-string CFigure::GetFillClr()
-{
-	if (FigGfxInfo.FillClr == BLACK)
-		return "BLACK";
-	else if (FigGfxInfo.FillClr== RED)
-		return "RED";
-	else if (FigGfxInfo.FillClr == YELLOW)
-		return "YELLOW";
-	else if (FigGfxInfo.FillClr == ORANGE)
-		return "ORANGE";
-	else if (FigGfxInfo.FillClr == GREEN)
-		return "GREEN";
-	else if (FigGfxInfo.FillClr == BLUE)
-		return "BLUE";
-	else
-		return "NO_FILL";
-}
 
-*/

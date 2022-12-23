@@ -1,6 +1,7 @@
 #ifndef CRECT_H
 #define CRECT_H
 
+
 #include "CFigure.h"
 
 class CRectangle : public CFigure
@@ -14,7 +15,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
 	virtual bool IsBelong( Point p) const;	//check whether point is on fig
-
+	virtual void Save(ofstream& OutFile);
 };
 
 #endif

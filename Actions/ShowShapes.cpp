@@ -16,6 +16,6 @@ void ShowShapes::Execute()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 
-	pOut->CreateAdditionalItemsBar(SHAPES);
+	pOut->CreateAdditionalItemsBar(SHAPES_MODE);
 
 }
