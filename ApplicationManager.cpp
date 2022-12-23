@@ -1,12 +1,22 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectangle.h"
 #include "Actions\AddSquare.h"
-#include"Actions\AddTriangleAction.h"
+#include"Actions\AddTriangle.h"
 #include "Actions\AddCircle.h"
 #include "Actions\AddHexagon.h"
+#include "Figures\CFigure.h"
+#include "Actions/Delete.h"
+#include "Actions\Select.h"
 #include "Actions\ShowShapes.h"
 #include "Actions\ShowColors.h"
+#include "Actions/Exit.h"
+#include "Actions/SwitchToPlay.h"
+#include "Actions/PickByShapes.h"
+#include "Actions/PickByColors.h"
+#include "Actions/PickByShapesAndColors.h"
 
+
+#include <cmath>
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -19,6 +29,7 @@ ApplicationManager::ApplicationManager()
 	//Create an array of figure pointers and set them to NULL		
 	for(int i=0; i<MaxFigCount; i++)
 		FigList[i] = NULL;	
+	SelectedFig = NULL;
 }
 
 //==================================================================================//
@@ -42,10 +53,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddRectangle(this);
 			break;
 
-		case triangle:
-			pAct = new AddTriangle(this);
-			break;
-
 		case circle:
 			pAct = new AddCircle(this);
 			break;
@@ -57,14 +64,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case hexagon:
 			pAct = new AddHexagon(this);
 			break;
+
 		case triangle:
-			pAct = new AddTriangleAction(this);
+			pAct = new AddTriangle(this);
 			break;
+
 		case ADD:
 			pAct = new ShowShapes(this);
 			break;
 		
-		case PCOLOR:
+		case FILL:
 			pAct = new ShowColors(this);
 			break;
 
@@ -72,12 +81,33 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new ShowColors(this);
 			break;
 
-		case EXIT:
-
-			///create ExitAction here
-			
+		case SELECT:
+			pAct = new Select(this);
 			break;
-		
+
+		case TO_PLAY:
+			pAct = new SwitchToPlay(this);
+			break;
+		case DLTE:
+			pAct = new Delete(this);
+			break;
+
+		case PCOLOR:
+			pAct = new PickByColors(this);
+			break;
+
+		case PSHAPE:
+			pAct = new PickByShapes(this);
+			break;
+
+		case PCOLORNSHAPE:
+			pAct = new PickByShapesAndColors(this);
+			break;
+
+		case EXIT:
+			pAct = new Exit(this);
+			break;
+
 		case STATUS:	//a click on the status bar ==> no action
 			return;
 	}
@@ -97,20 +127,60 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
-	if(FigCount < MaxFigCount )
-		FigList[FigCount++] = pFig;	
+	if (FigCount < MaxFigCount)
+	{
+		FigList[FigCount++] = pFig;
+		pFig->SetID(FigCount);
+	}
 }
+/*void ApplicationManager::DeleteFigure(int ID)
+{
+	for (int i = ID; i < FigCount - 1; i++) {
+		FigList[i] = FigList[i + 1];
+		FigList[i]->SetID(i);
+	}
+	//Reduce FigCount by 1 and nullify the extra pointer (used to point at the deleted figure)
+	FigCount--;
+	FigList[FigCount] = NULL;
+
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]==pFig)
+		{
+			delete FigList[i];
+			FigCount--;
+			FigList[i] = FigList[FigCount - 1];
+			FigList[--FigCount] = NULL;
+		}
+	}
+	}*/
+
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return NULL
-
-
 	//Add your code here to search for a figure given a point x,y	
 	//Remember that ApplicationManager only calls functions do NOT implement it.
-
+	Point p;
+	p.x = x;
+	p.y = y;
+	for (int i = FigCount - 1; i >=0; i--)
+	{
+		if (FigList[i]->IsBelong(p))
+		{
+			return FigList[i];
+		}
+	}
 	return NULL;
+}
+void ApplicationManager::SetSelectedFig(CFigure* Fig)
+{
+	SelectedFig = Fig;
+}
+CFigure* ApplicationManager::GetSelectedFig()
+{
+	return SelectedFig;
 }
 //==================================================================================//
 //							Interface Management Functions							//
@@ -137,5 +207,4 @@ ApplicationManager::~ApplicationManager()
 		delete FigList[i];
 	delete pIn;
 	delete pOut;
-	
 }
