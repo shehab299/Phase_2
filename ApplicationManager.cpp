@@ -1,5 +1,7 @@
 //STL library
 #include <cmath>
+#include <fstream>
+
 //Other Files
 #include "ApplicationManager.h"
 #include "Figures\CFigure.h"
@@ -17,8 +19,8 @@
 #include "Actions/SwitchToPlay.h"
 #include "Actions/PickByColors.h"
 #include "Actions/PickByShapesAndColors.h"
-
-
+#include "Actions/Save.h"
+#include "Actions/Load.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -97,12 +99,22 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new AddTriangle(this);
 		break;
 
+	
 
 	//Shapes Functionality
 	case SELECT:
 		pAct = new Select(this);
 		break;
 
+	//File Management
+
+	case SAVE:
+		pAct = new Save(this);
+		break;
+
+	case LOAD:
+		pAct = new Load(this);
+		break;
 
 	case EXIT:
 		pAct = new Exit(this);
@@ -174,6 +186,49 @@ CFigure* ApplicationManager::GetSelectedFig()
 	return SelectedFig;
 }
 
+bool ApplicationManager::SaveAll(const string & file_name)
+{
+	ofstream file(file_name , ios::out);
+
+	if (!file)
+	{
+		return 0;
+	}
+
+	file << FigCount << '\n';
+	file << TranslateToInt(pOut->getCrntDrawColor()) << " " << TranslateToInt(pOut->getCrntFillColor()) << '\n';
+
+	for(int i = 0 ; i < FigCount ; i++)
+	{
+		FigList[i] -> Save(file);
+	}
+
+	file.close();
+
+	return 1;
+
+}
+
+bool ApplicationManager::LoadAll(const string & file_name)
+{
+	ifstream file(file_name, ios::in);
+
+	if (!file)
+	{
+		return false;
+	}
+
+	int shapes_num , draw_color , fill_color;
+	char new_line;
+	file >> shapes_num >> new_line; 
+	file >> draw_color >> fill_color >> new_line;
+	pOut->PrintMessage(to_string(shapes_num) + to_string(draw_color) + to_string(fill_color));
+
+}
+
+
+
+
 
 //==================================================================================//
 //							Interface Management Functions							//
@@ -211,3 +266,4 @@ ApplicationManager::~ApplicationManager()
 	delete pIn;
 	delete pOut;
 }
+

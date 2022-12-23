@@ -185,7 +185,9 @@
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddRectangle.h" />
@@ -232,6 +234,8 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="Actions\Save.h" />
+    <ClInclude Include="Actions\Load.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

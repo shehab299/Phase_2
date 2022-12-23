@@ -161,6 +161,8 @@
     <ClCompile Include="Actions\PickByColors.cpp" />
     <ClCompile Include="Actions\Exit.cpp" />
     <ClCompile Include="Actions\SwitchToPlay.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -261,6 +263,8 @@
     <ClInclude Include="Actions\PickByColors.h" />
     <ClInclude Include="Actions\Exit.h" />
     <ClInclude Include="Actions\SwitchToPlay.h" />
+    <ClInclude Include="Actions\Save.h" />
+    <ClInclude Include="Actions\Load.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
