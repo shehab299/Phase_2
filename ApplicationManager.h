@@ -16,6 +16,7 @@ private:
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 
 	CFigure* SelectedFig; //Pointer to the selected figure
+
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -30,11 +31,13 @@ public:
 	void ExecuteAction(ActionType) ; //Creates an action and executes it
 	
 	// -- Figures Management Functions
-	void AddFigure(CFigure* pFig); 	//Adds a new figure to the FigList
-	void DeleteFigure(int ID);//Delete a figure from the FigList
-	CFigure *GetFigure(int x1, int y1) const; //Search for a figure given a point inside the figure
+	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
+	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
+
 	void SetSelectedFig(CFigure* Fig);
+
 	CFigure* GetSelectedFig();
+		
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output
