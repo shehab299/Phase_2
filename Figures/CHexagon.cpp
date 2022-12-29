@@ -21,26 +21,15 @@ void CHexagon::PrintInfo(Output* pOut) const
 bool CHexagon::IsBelong( Point p) const
 {
 	int xMirror = abs(p.x - Center.x), yMirror ( abs(p.y - Center.y));
-	return (yMirror >= 0 && yMirror <= ((sqrt(3) / 2.0) * (length))) && (xMirror >= 0) && (xMirror < ((1.5 * length) - 2 * yMirror / sqrt(3)));
-	/*  
-	* Non optimized soluation
-	 	int xMirror = abs(p.x - Center.x);
-		int yMirror = abs(p.y - Center.y);
-		bool xbndrect = ((xMirror <=  0.5 * (length)) && (xMirror >= 0));
-		bool ybndrect = ((yMirror <=  (length * sqrt(3) / 2.0)) && (yMirror >= 0));
-		bool xbndtri = ((xMirror > (0.5 * length)) && (xMirror <= length));
-		bool ybndtri = ((yMirror > 0) && (yMirror <= ((sqrt(3) / 2.0) * (length))));
-		if (xbndrect && ybndrect)
-		{
-			return true;
-		}
-		if (xbndtri && ybndtri)
-		{
-			return true;
-		}
-	return false;
-	*/
-		
+	bool yBnd((yMirror >= 0) && yMirror <= ((sqrt(3) / 2.0) * (length))),
+		XBnd((xMirror >= 0) && (xMirror < ((1.5 * length) - 2 * yMirror / sqrt(3))));
+	return ( yBnd && XBnd );	
+}
+
+void CHexagon::Displacment(Point p)
+{
+	Center.x = p.x;
+	Center.y = p.y;
 }
 
 

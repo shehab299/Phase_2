@@ -3,7 +3,7 @@
 CSquare::CSquare(Point Cntr, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Center = Cntr;
-	length=120;
+	length = 120;
 }
 
 
@@ -15,8 +15,15 @@ void CSquare::Draw(Output* pOut) const
 
 void CSquare::PrintInfo(Output* pOut) const
 {
-	pOut->PrintMessage("SQUARE  ID   " + to_string(ID) + "Center(" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
+	pOut->PrintMessage("SQUARE  ID   " + to_string(ID) + "    Center (" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
 }
+
+void CSquare::Displacment(Point p) 
+{
+	Center.x = p.x;
+	Center.y = p.y;
+}
+
 
 bool CSquare::IsBelong( Point p)const
 {

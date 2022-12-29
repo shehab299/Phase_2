@@ -32,6 +32,12 @@ string Input::GetSrting(Output *pO) const
 	}
 }
 
+buttonstate Input::GetPointDragged(int& x, int& y) const
+{
+	return(pWind->GetButtonState(LEFT_BUTTON,x,y));
+	
+}
+
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction() const
 {	

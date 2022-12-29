@@ -18,9 +18,11 @@ public:
 	CFigure(GfxInfo FigureGfxInfo);
 	void SetID(int id);
 	int GetID();
+	virtual void Displacment(Point p) =0; //dicplace the coordinates of the figure
 	void SetSelected(bool s);	//select/unselect the figure
 	virtual bool IsBelong(Point p) const = 0;	//check whether point is on fig
 	bool IsSelected();
+	GfxInfo GetGfxInfo();
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color

@@ -160,6 +160,7 @@ void Output::CreateAdditionalItemsBar(ADDIONAL_MODE mode) const
 			pWind->DrawImage(ShapesItems[i], i * (UI.MenuItemWidth + 5), UI.ToolBarHeight + 2, UI.MenuItemWidth, UI.AdditionalMenuItemHeight);
 		}
 	}
+	
 }
 
 
@@ -180,7 +181,7 @@ void Output::CreatePlayToolBar() const
 	}
 
 	//Draw a line under the toolbar
-	pWind->SetPen(UI.DrawColor, 1);
+	pWind->SetPen(BLACK, 1);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
 }
@@ -213,6 +214,21 @@ color Output::getCrntFillColor() const	//get current filling color
 	
 int Output::getCrntPenWidth() const		//get current pen width
 {	return UI.PenWidth;	}
+
+void Output::setCrntFillColor(color c) const
+{
+	UI.FillColor = c;
+}
+
+void Output::setCrntDrawColor(color c) const
+{
+	UI.DrawColor = c;
+}
+
+void Output::setIsfilled(bool b)
+{
+	UI.isfilled = b;
+}
 
 
 

@@ -28,6 +28,11 @@ bool CFigure::IsSelected()
 	return Selected;
 }
 
+GfxInfo CFigure::GetGfxInfo()
+{
+	return FigGfxInfo;
+}
+
 
 void CFigure::ChngDrawClr(color Dclr)
 {	FigGfxInfo.DrawClr = Dclr; }

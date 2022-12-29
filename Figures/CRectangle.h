@@ -14,6 +14,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
 	virtual bool IsBelong( Point p) const;	//check whether point is on fig
+	virtual void Displacment(Point p); //dicplace the coordinates of the figure
 
 };
 

@@ -9,6 +9,8 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 	Corner1 = P1;
 	Corner2 = P2;
 	Corner3 = P3;
+	Center.x = (P1.x + P2.x + P3.x) / 3;
+	Center.y = (P1.y + P2.y + P3.y) / 3;
 }
 
 
@@ -32,4 +34,17 @@ bool CTriangle::IsBelong( Point p) const
 	float Area2 = CalcArea(p, Corner3, Corner2);
 	float Area3 = CalcArea(p, Corner1, Corner3);
 	return(Area == Area1 + Area2 + Area3);
+}
+
+void CTriangle::Displacment(Point p)
+{
+	int DeltaX = (p.x - Center.x);
+	int DeltaY = (p.y - Center.y);
+	Center = p;
+	Corner2.x += DeltaX;
+	Corner2.y += DeltaY;
+	Corner3.x += DeltaX;
+	Corner3.y += DeltaY;
+	Corner1.x += DeltaX;
+	Corner1.y += DeltaY;
 }
