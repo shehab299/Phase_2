@@ -1,12 +1,12 @@
+#pragma once
 #include "Action.h"
-
-
-class ShowColors : public Action
+class MoveByDragging :public Action
 {
 private:
+	Point p;
 public:
-	ShowColors(ApplicationManager* pApp);
+	MoveByDragging(ApplicationManager* pApp);
 	virtual void ReadActionParameters();
 	virtual void Execute();
-
 };
+

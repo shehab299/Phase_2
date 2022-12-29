@@ -16,6 +16,6 @@ void ShowColors::Execute()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 
-	pOut->CreateAdditionalItemsBar(COLORS);
-
+		pOut->CreateAdditionalItemsBar(COLORS);
+	
 }

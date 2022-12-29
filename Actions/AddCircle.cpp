@@ -6,7 +6,7 @@
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 
-AddCircle::AddCircle(ApplicationManager* pApp) :Action(pApp)
+AddCircle::AddCircle(ApplicationManager* pApp) : Action(pApp)
 {}
 
 void AddCircle::ReadActionParameters()
