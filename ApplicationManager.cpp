@@ -1,22 +1,31 @@
+#include <cmath>
 #include "ApplicationManager.h"
+//Shapes
+#include "Actions\ShowShapes.h"
+#include "Figures\CFigure.h"
 #include "Actions\AddRectangle.h"
 #include "Actions\AddSquare.h"
 #include"Actions\AddTriangle.h"
 #include "Actions\AddCircle.h"
 #include "Actions\AddHexagon.h"
-#include "Figures\CFigure.h"
-#include "Actions/Delete.h"
-#include "Actions\Select.h"
-#include "Actions\ShowShapes.h"
-#include "Actions\ShowColors.h"
-#include "Actions/Exit.h"
+
+//PLayMode
 #include "Actions/SwitchToPlay.h"
-#include "Actions/PickByShapes.h"
-#include "Actions/PickByColors.h"
-#include "Actions/PickByShapesAndColors.h"
+//#include "Actions/PickByShapes.h"
+//#include "Actions/PickByColors.h"
+//#include "Actions/PickByShapesAndColors.h"
 
+//Colors actions
+#include "Actions\ShowColors.h"
+#include "Actions/ChangeFillColor.h"
+#include "Actions/ChangeDrawColor.h"
 
-#include <cmath>
+//others actions
+#include "Actions\Select.h"
+#include "Actions/Move.h"
+#include "Actions/MoveByDragging.h"
+#include "Actions/Exit.h"
+
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -45,7 +54,8 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType) 
 {
 	Action* pAct = NULL;
-	
+	Action* pAct1 = NULL;
+
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
@@ -73,13 +83,23 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new ShowShapes(this);
 			break;
 		
-		case FILL:
-			pAct = new ShowColors(this);
+		case MOVE:
+			pAct = new Move(this);
 			break;
 
-		case DCOLOR:
-			pAct = new ShowColors(this);
+		case DRAG:
+			pAct = new MoveByDragging(this);
+				break;
+		case FILL:
+			{ pAct = new ShowColors(this);
+			pAct1 = new ChangeFillColor(this);
 			break;
+			}
+		case DCOLOR:
+			{ pAct = new ShowColors(this);
+			pAct1 = new ChangeDrawColor(this);
+			break;
+			}
 
 		case SELECT:
 			pAct = new Select(this);
@@ -88,21 +108,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case TO_PLAY:
 			pAct = new SwitchToPlay(this);
 			break;
-		case DLTE:
-			pAct = new Delete(this);
-			break;
 
-		case PCOLOR:
-			pAct = new PickByColors(this);
-			break;
+		//case PCOLOR:
+		//	pAct = new PickByColors(this);
+		//	break;
 
-		case PSHAPE:
-			pAct = new PickByShapes(this);
-			break;
-
+		//case PSHAPE:
+		//	pAct = new PickByShapes(this);
+		//	break;
+			/*
 		case PCOLORNSHAPE:
 			pAct = new PickByShapesAndColors(this);
-			break;
+			break;*/
 
 		case EXIT:
 			pAct = new Exit(this);
@@ -116,6 +133,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();//Execute
+		if (pAct1 != NULL)
+		{
+			pAct1->Execute();//Execute
+			delete pAct1;	//You may need to change this line depending to your implementation
+			pAct1 = NULL;
+
+		}
 		delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
@@ -182,13 +206,22 @@ CFigure* ApplicationManager::GetSelectedFig()
 {
 	return SelectedFig;
 }
+int ApplicationManager::GetFigCount()
+{
+	return FigCount;
+}
+CFigure* ApplicationManager::RetFig(int idx)
+{
+	return FigList[idx];
+}
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
 
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
-{	
+{
+	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
