@@ -7,13 +7,19 @@ class CSquare : public CFigure
 {
 private:
 	Point Center;
+	Point undoc;
+	Point redoc;
 	int length ;
 public:
 	CSquare(Point, GfxInfo FigureGfxInfo);
-	int Setlength(int l);
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
 	virtual bool IsBelong(Point p)const;
+	virtual void MoveFigure(Point p);
+	virtual void Save(ofstream& OutFile) const;
+	virtual void Load(fstream& InFile);
+	virtual void cancelFigure();
+	virtual void Redotransition();
 };
 
 #endif
