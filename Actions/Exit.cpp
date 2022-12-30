@@ -12,7 +12,10 @@ void Exit::ReadActionParameters()
 {}
 
 void Exit::Execute()
-{
-	
-}
+{}
 
+void Exit::undo()
+{}
+
+void Exit::redo()
+{}

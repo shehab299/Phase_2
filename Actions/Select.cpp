@@ -58,3 +58,9 @@ void Select::Execute()
 	else
 		pOut->PrintMessage("Please click inside or on the borders of any figure");
 }
+
+void Select::undo()
+{}
+
+void Select::redo()
+{}

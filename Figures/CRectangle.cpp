@@ -12,11 +12,6 @@ void CRectangle::Draw(Output* pOut) const
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 }
 
-void CRectangle::PrintInfo(Output* pOut) const
-{
-	pOut->PrintMessage("RECTANGLE ID   " + to_string(ID) + "   " + to_string(Corner1.x) + "   " + to_string(Corner1.y) + "   " + to_string(Corner2.x) + "   " + to_string(Corner2.y));
-}
-
 bool CRectangle::IsBelong(Point p) const
 {
 	int Xmin = (Corner1.x < Corner2.x) ? Corner1.x : Corner2.x;
@@ -26,7 +21,14 @@ bool CRectangle::IsBelong(Point p) const
 	return (p.x > Xmin && p.x<Xmax&& p.y>Ymin && p.y < Ymax);
 }
 
-void CRectangle::Save(ofstream& OutFile)
+void CRectangle::PrintInfo(Output* pOut) const
+{
+	pOut->PrintMessage("RECTANGLE ID   " + to_string(ID) + "   " + to_string(Corner1.x) + "   " + to_string(Corner1.y) + "   " + to_string(Corner2.x) + "   " + to_string(Corner2.y));
+}
+
+
+
+void CRectangle::Save(ofstream& OutFile) const
 {
 	string type = to_string(RECTANGLE);
 	string id = to_string(ID);
@@ -45,6 +47,25 @@ void CRectangle::Save(ofstream& OutFile)
 		OutFile << "\n";
 	}
 
+}
+
+void CRectangle::Load(fstream& InFile)
+{
+	int draw_color, fill;
+	if (InFile.is_open())
+	{
+		InFile >> ID;
+		InFile >> Corner1.x >> Corner1.y;
+		InFile >> Corner2.x >> Corner2.y;
+		InFile >> draw_color >> fill;
+		
+		if (fill == -1)
+			FigGfxInfo.isFilled = false;
+		else
+			ChngFillClr(TranslateToColor(fill));
+
+		ChngDrawClr(TranslateToColor(draw_color));
+	}
 }
 
 

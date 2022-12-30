@@ -16,7 +16,8 @@ public:
 	virtual void Draw(Output* pOut) const;
 	virtual void PrintInfo(Output* pOut) const;
 	virtual bool IsBelong(Point p) const;
-	virtual void Save(ofstream& OutFile);
+	virtual void Save(ofstream& OutFile) const;
+	virtual void Load(fstream& InFile);
 };
 
 #endif

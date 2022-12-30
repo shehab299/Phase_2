@@ -19,3 +19,9 @@ void ShowColors::Execute()
 	pOut->CreateAdditionalItemsBar(COLORS_MODE);
 
 }
+
+void ShowColors::undo()
+{}
+
+void ShowColors::redo()
+{}

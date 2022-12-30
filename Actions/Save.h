@@ -8,12 +8,9 @@ private:
 	string file_name;
 public:
 	Save(ApplicationManager* pApp);
-
-	//Reads circle parameters
 	virtual void ReadActionParameters();
-
-	//Add circle to the ApplicationManager
 	virtual void Execute();
-
+	virtual void undo();
+	virtual void redo();
 };
 

@@ -36,9 +36,24 @@ void AddSquare::Execute()
 	ReadActionParameters();
 
 	//Create a square with the parameters read from the user
-	CSquare* R = new CSquare(Center, SqrGfxInfo);
+	figPtr = new CSquare(Center, SqrGfxInfo);
 
 	//Add the square to the list of figures
-	pManager->AddFigure(R);
+	pManager->AddFigure(figPtr);
 }
+
+
+void AddSquare::undo()
+{
+	if (pManager->GetSelectedFig() == figPtr)
+		pManager->SetSelectedFig(nullptr);
+
+	pManager->DeleteFigure(figPtr);
+}
+
+void AddSquare::redo()
+{
+	pManager->RestoreDeleted(figPtr);
+}
+
 

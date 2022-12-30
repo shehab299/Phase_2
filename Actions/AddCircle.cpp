@@ -41,9 +41,23 @@ void AddCircle::Execute()
 	ReadActionParameters();
 
 	//Create a circle with the parameters read from the user
-	CCircle* R = new CCircle(Center, Rad, CrclGfxInfo);
+	figPtr = new CCircle(Center, Rad, CrclGfxInfo);
 
 	//Add the circle to the list of figures
-	pManager->AddFigure(R);
+	pManager->AddFigure(figPtr);
 }
+
+void AddCircle::undo()
+{
+	if (pManager->GetSelectedFig() == figPtr)
+		pManager->SetSelectedFig(NULL);
+	pManager->DeleteFigure(figPtr);
+}
+
+void AddCircle::redo()
+{
+	pManager->RestoreDeleted(figPtr);
+}
+
+
 

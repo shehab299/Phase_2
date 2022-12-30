@@ -38,13 +38,13 @@ public:
 	
 	
 
-	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
-	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
+	virtual void Save(ofstream &OutFile) const = 0 ;	//Save the figure parameters to the file
+	virtual void Load(fstream &Infile) = 0;	//Load the figure parameters to the file
 
 	virtual void PrintInfo(Output* pOut) const = 0;	//print all figure info on the status bar
 };
 
-int TranslateToInt(color&);
+int TranslateToInt(color);
 color TranslateToColor(int);
 
 

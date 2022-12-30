@@ -1,12 +1,18 @@
 #pragma once
-#include "Action.h"
 
-class Load : public Action
+
+#include "Action.h"
+#include "..\ApplicationManager.h"
+
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
+
+
+class Delete : public Action
 {
 private:
-	string file_name;
 public:
-	Load(ApplicationManager* pApp);
+	Delete(ApplicationManager* pApp);
 
 	virtual void ReadActionParameters();
 
@@ -15,5 +21,5 @@ public:
 	virtual void undo();
 
 	virtual void redo();
-
 };
+

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\DefS.h"
+#include "../Figures/CFigure.h"
 
 class ApplicationManager; //forward class declaration
 
@@ -9,6 +10,7 @@ class ApplicationManager; //forward class declaration
 class Action
 {
 protected:
+	CFigure* figPtr;
 	ApplicationManager *pManager;	//Actions needs AppMngr to do their job
 
 public:
@@ -19,7 +21,13 @@ public:
 	virtual void ReadActionParameters() =0;
 	
 	//Execute action (code depends on action type)
-	virtual void Execute() =0;
+	virtual void Execute() = 0;
 
+	virtual void undo() = 0;
+
+	virtual void redo() = 0;
 };
+
+
+
 

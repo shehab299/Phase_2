@@ -46,9 +46,22 @@ void AddTriangle::Execute()
 	ReadActionParameters();
 
 	//Create a triangle with the parameters read from the user
-	CTriangle* R = new CTriangle(P1, P2, P3, TriGfxInfo);
+	figPtr = new CTriangle(P1, P2, P3, TriGfxInfo);
 
 	//Add the triangle to the list of figures
-	pManager->AddFigure(R);
+	pManager->AddFigure(figPtr);
 }
 
+
+
+void AddTriangle::undo()
+{
+	if (pManager->GetSelectedFig() == figPtr)
+		pManager->SetSelectedFig(NULL);
+	pManager->DeleteFigure(figPtr);
+}
+
+void AddTriangle::redo()
+{
+	pManager->RestoreDeleted(figPtr);
+}

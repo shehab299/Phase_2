@@ -26,7 +26,7 @@ bool CSquare::IsBelong( Point p)const
 	return((p.x > Center.x - (length / 2.0)) && (p.x < Center.x + (length / 2.0)) && (p.y > Center.y - (length / 2.0)) && (p.y < Center.y + (length / 2.0)));
 }
 
-void CSquare::Save(ofstream& OutFile)
+void CSquare::Save(ofstream& OutFile) const
 {
 	string type = to_string(SQUARE);
 	string id = to_string(ID);
@@ -44,3 +44,19 @@ void CSquare::Save(ofstream& OutFile)
 	}
 }
 
+
+void CSquare::Load(fstream& InFile)
+{
+	int draw_color, fill;
+	if (InFile.is_open())
+	{
+		InFile >> ID;
+		InFile >> Center.x >> Center.y;
+		InFile >> draw_color >> fill;
+		if (fill == -1)
+			FigGfxInfo.isFilled = false;
+		else
+			ChngFillClr(TranslateToColor(fill));
+		ChngDrawClr(TranslateToColor(draw_color));
+	}
+}

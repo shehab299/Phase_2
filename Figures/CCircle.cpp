@@ -5,6 +5,7 @@ CCircle::CCircle(Point cntr, Point p, GfxInfo FigGfxInfo) :CFigure(FigGfxInfo)
 	Center = cntr;
 	RadiusP = p;
 }
+
 void CCircle::Draw(Output* pOut) const
 {
 	pOut->DrawCrcl(Center, RadiusP, FigGfxInfo, Selected);
@@ -31,7 +32,8 @@ bool CCircle::IsBelong( Point p) const
 	return (d <= r);
 }
 
-void CCircle::Save(ofstream& OutFile)
+
+void CCircle::Save(ofstream& OutFile) const
 {
 	string type = to_string(CIRCLE);
 	string id = to_string(ID);
@@ -43,9 +45,30 @@ void CCircle::Save(ofstream& OutFile)
 		OutFile << setw(3) << id << " ";
 		OutFile << setw(3) << Center.x << " ";
 		OutFile << setw(3) << Center.y << " ";
+		OutFile << setw(3) << RadiusP.x << " ";
+		OutFile << setw(3) << RadiusP.y << " ";
 		OutFile << setw(3) << draw_color << " ";
 		OutFile << setw(3) << fill << " ";
 		OutFile << '\n';
 	}
 }
 
+
+void CCircle::Load(fstream& InFile)
+{
+	int draw_color, fill;
+	if (InFile.is_open())
+	{
+		InFile >> ID;
+		InFile >> Center.x >> Center.y;
+		InFile >> RadiusP.x >> RadiusP.y;
+		InFile >> draw_color >> fill;
+		
+		if (fill == -1)
+			FigGfxInfo.isFilled = false;
+		else
+			ChngFillClr(TranslateToColor(fill));
+
+		ChngDrawClr(TranslateToColor(draw_color));
+	}
+}

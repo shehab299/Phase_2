@@ -37,7 +37,7 @@ bool CTriangle::IsBelong( Point p) const
 	return Area == Area1 + Area2 + Area3;
 }
 
-void CTriangle::Save(ofstream& OutFile)
+void CTriangle::Save(ofstream& OutFile) const
 {
 	string type = to_string(TRIANGLE);
 	string id = to_string(ID);
@@ -58,3 +58,23 @@ void CTriangle::Save(ofstream& OutFile)
 		OutFile << '\n';
 	}
 }
+
+void CTriangle::Load(fstream& InFile) 
+{
+	int draw_color, fill;
+	if (InFile.is_open())
+	{
+		InFile >> ID;
+		InFile >> Corner1.x >> Corner1.y;
+		InFile >> Corner2.x >> Corner2.y;
+		InFile >> Corner3.x >> Corner3.y;
+		InFile >> draw_color >> fill;
+		if (fill == -1)
+			FigGfxInfo.isFilled = false;
+		else
+			ChngFillClr(TranslateToColor(fill));
+		ChngDrawClr(TranslateToColor(draw_color));
+	}
+}
+
+

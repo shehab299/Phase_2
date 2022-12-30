@@ -4,9 +4,13 @@ PickByShapesAndColors::PickByShapesAndColors(ApplicationManager* pApp) : Action(
 {}
 
 void PickByShapesAndColors::ReadActionParameters()
-{
-}
+{}
 
 void PickByShapesAndColors::Execute()
-{
-}
+{}
+
+void PickByShapesAndColors::undo()
+{}
+
+void PickByShapesAndColors::redo()
+{}

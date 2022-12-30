@@ -21,3 +21,10 @@ void SwitchToPlay::Execute()
 	pOut->PrintMessage("Welcome to the play mode!!   Please choose a mode from ( by shape/color/shape and color) to start ");
 
 }
+
+void SwitchToPlay::undo()
+{}
+
+
+void SwitchToPlay::redo()
+{}

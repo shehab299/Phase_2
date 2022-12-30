@@ -19,3 +19,10 @@ void ShowShapes::Execute()
 	pOut->CreateAdditionalItemsBar(SHAPES_MODE);
 
 }
+
+void ShowShapes::undo()
+{
+}
+
+void ShowShapes::redo()
+{}

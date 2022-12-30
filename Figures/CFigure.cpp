@@ -38,7 +38,7 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.FillClr = Fclr; 
 }
 
-int TranslateToInt(color & Color)
+int TranslateToInt(color Color) 
 {
 	if (Color == RED)
 		return RED_;

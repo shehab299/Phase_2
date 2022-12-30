@@ -36,9 +36,23 @@ void AddHexagon::Execute()
 	ReadActionParameters();
 
 	//Create a hexagon with the parameters read from the user
-	CHexagon* R = new CHexagon(Center,HxgGfxInfo);
+	figPtr = new CHexagon(Center,HxgGfxInfo);
 
 	//Add the hexagon to the list of figures
-	pManager->AddFigure(R);
+	pManager->AddFigure(figPtr);
 }
+
+
+void AddHexagon::undo()
+{
+	pManager->DeleteFigure(figPtr);
+}
+
+void AddHexagon::redo()
+{
+	if (pManager->GetSelectedFig() == figPtr)
+		pManager->SetSelectedFig(NULL);
+	pManager->RestoreDeleted(figPtr);
+}
+
 

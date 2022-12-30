@@ -13,37 +13,23 @@ void CHexagon::Draw(Output* pOut) const
 
 void CHexagon::PrintInfo(Output* pOut) const
 {
-	pOut->PrintMessage("HEXAGON ID   " + to_string(ID) + "Center(" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
-
+	string part1 = "HEXAGON ID " + to_string(ID) + " ";
+	string part2 = "Center ( " + to_string(Center.x) + " , " + to_string(Center.y) + " )";
+	string part3 = "side length " + to_string(length);
+	pOut->PrintMessage(part1 + part2 + part3);
 }
 
 
 bool CHexagon::IsBelong( Point p) const
 {
 	int xMirror = abs(p.x - Center.x), yMirror ( abs(p.y - Center.y));
-	return (yMirror >= 0 && yMirror <= ((sqrt(3) / 2.0) * (length))) && (xMirror >= 0) && (xMirror < ((1.5 * length) - 2 * yMirror / sqrt(3)));
-	/*  
-	* Non optimized soluation
-	 	int xMirror = abs(p.x - Center.x);
-		int yMirror = abs(p.y - Center.y);
-		bool xbndrect = ((xMirror <=  0.5 * (length)) && (xMirror >= 0));
-		bool ybndrect = ((yMirror <=  (length * sqrt(3) / 2.0)) && (yMirror >= 0));
-		bool xbndtri = ((xMirror > (0.5 * length)) && (xMirror <= length));
-		bool ybndtri = ((yMirror > 0) && (yMirror <= ((sqrt(3) / 2.0) * (length))));
-		if (xbndrect && ybndrect)
-		{
-			return true;
-		}
-		if (xbndtri && ybndtri)
-		{
-			return true;
-		}
-	return false;
-	*/
+	bool condition = (yMirror >= 0 && yMirror <= ((sqrt(3) / 2.0) * (length)));
+	condition = condition && (xMirror >= 0) && (xMirror < ((1.5 * length) - 2 * yMirror / sqrt(3)));
+	return condition;
 		
 }
 
-void CHexagon::Save(ofstream& OutFile)
+void CHexagon::Save(ofstream& OutFile) const
 {
 	string type = to_string(HEXAGON);
 	string id = to_string(ID);
@@ -60,5 +46,25 @@ void CHexagon::Save(ofstream& OutFile)
 		OutFile << '\n';
 	}
 }
+
+
+void CHexagon::Load(fstream& InFile)
+{
+	int draw_color, fill;
+	if (InFile.is_open())
+	{
+		InFile >> ID;
+		InFile >> Center.x >> Center.y;
+		InFile >> draw_color >> fill;
+
+		if (fill == -1)
+			FigGfxInfo.isFilled = false;
+		else
+			ChngFillClr(TranslateToColor(fill));
+
+		ChngDrawClr(TranslateToColor(draw_color));
+	}
+}
+
 
 
