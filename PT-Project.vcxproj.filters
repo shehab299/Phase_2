@@ -163,6 +163,10 @@
     <ClCompile Include="Actions\SwitchToPlay.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\Undo.cpp" />
+    <ClCompile Include="structres\ActionStack.cpp" />
+    <ClCompile Include="Actions\Redo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -265,6 +269,10 @@
     <ClInclude Include="Actions\SwitchToPlay.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\Undo.h" />
+    <ClInclude Include="structres\ActionStack.h" />
+    <ClInclude Include="Actions\Redo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

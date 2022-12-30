@@ -140,6 +140,7 @@
     <ClCompile Include="Actions\ShowColors.cpp" />
     <ClCompile Include="Actions\ShowShapes.cpp" />
     <ClCompile Include="Actions\SwitchToPlay.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Figures\CHexagon.cpp" />
     <ClCompile Include="Figures\CCircle.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
@@ -188,6 +189,9 @@
     <ClCompile Include="Actions\Load.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
+    <ClCompile Include="Actions\Undo.cpp" />
+    <ClCompile Include="Actions\Redo.cpp" />
+    <ClCompile Include="structres\ActionStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddRectangle.h" />
@@ -202,6 +206,7 @@
     <ClInclude Include="Actions\ShowColors.h" />
     <ClInclude Include="Actions\ShowShapes.h" />
     <ClInclude Include="Actions\SwitchToPlay.h" />
+    <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Figures\CHexagon.h" />
     <ClInclude Include="Figures\CCircle.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
@@ -236,6 +241,9 @@
     <ClInclude Include="DEFS.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Undo.h" />
+    <ClInclude Include="Actions\Redo.h" />
+    <ClInclude Include="structres\ActionStack.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

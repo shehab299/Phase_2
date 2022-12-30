@@ -4,7 +4,15 @@
 
 //Other Files
 #include "ApplicationManager.h"
-#include "Figures\CFigure.h"
+
+//Figures
+#include "Figures/CFigure.h"
+#include "Figures/CRectangle.h"
+#include "Figures/CSquare.h"
+#include "Figures/CTriangle.h"
+#include "Figures/CCircle.h"
+#include "Figures/CHexagon.h"
+#include "Figures/CRectangle.h"
 
 //Actions
 #include "Actions\AddRectangle.h"
@@ -21,6 +29,9 @@
 #include "Actions/PickByShapesAndColors.h"
 #include "Actions/Save.h"
 #include "Actions/Load.h"
+#include "Actions/Delete.h"
+#include "Actions/Undo.h"
+#include "Actions/Redo.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -28,12 +39,18 @@ ApplicationManager::ApplicationManager()
 	//Create Input and output
 	pOut = new Output;
 	pIn = pOut->CreateInput();
+	
 
 	FigCount = 0;
+	DeletedCount = 0;
 
 	//Create an array of figure pointers and set them to NULL		
-	for (int i = 0; i < MaxFigCount; i++)
+	for (int i = 0; i < MaxFigCount; i++) 
+	{
 		FigList[i] = NULL;
+		DeletedFigs[i] = NULL;
+	}
+	
 	SelectedFig = NULL;
 }
 
@@ -42,7 +59,6 @@ ApplicationManager::ApplicationManager()
 //==================================================================================//
 //								Actions Related Functions							//
 //==================================================================================//
-
 
 ActionType ApplicationManager::GetUserAction() const
 {
@@ -64,7 +80,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 
 	//Showing Additional Menu
-
 	case ADD:
 		pAct = new ShowShapes(this);
 		break;
@@ -79,35 +94,58 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 
 	//Adding Shapes Actions
+
 	case rectangle:
 		pAct = new AddRectangle(this);
+		UndoList.push(pAct);
 		break;
 
 	case circle:
-		pAct = new AddCircle(this);
+		pAct = new AddCircle(this);		
+		UndoList.push(pAct);
 		break;
 
 	case square:
 		pAct = new AddSquare(this);
+		UndoList.push(pAct);
 		break;
 
 	case hexagon:
 		pAct = new AddHexagon(this);
+		UndoList.push(pAct);
 		break;
 
 	case triangle:
 		pAct = new AddTriangle(this);
+		UndoList.push(pAct);
 		break;
-
 	
-
 	//Shapes Functionality
+
 	case SELECT:
 		pAct = new Select(this);
 		break;
 
-	//File Management
 
+	case DLTE:
+		pAct = new Delete(this);
+		UndoList.push(pAct);
+		break;
+
+
+	case UNDO:
+		pAct = new Undo(this);
+		break;
+
+	case REDO:
+		if (LastActionType == UNDO || LastActionType == REDO)
+			pAct = new Redo(this);
+		else
+			FlushRedo();
+		break;
+
+	//File Management
+		
 	case SAVE:
 		pAct = new Save(this);
 		break;
@@ -120,6 +158,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Exit(this);
 		break;
 
+
 	//No Action
 
 	case STATUS:	
@@ -130,17 +169,20 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//Execute the created action
 	if (pAct != NULL)
 	{
-		pAct->Execute();//Execute
-		delete pAct;	//You may need to change this line depending to your implementation
+		pAct->Execute(); //Execute
+		LastAction = pAct;
+		LastActionType = ActType;
 		pAct = NULL;
 	}
 }
+
+
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
 
-//Add a figure to the list of figures
 
+//Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (pFig)
@@ -148,21 +190,17 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		if (FigCount < MaxFigCount)
 		{
 			FigList[FigCount++] = pFig;
-			pFig->SetID(FigCount);
+			pFig -> SetID(FigCount); // you can't reuse the same id of the deleted figures
 		}
 	}
 }
 
-
 CFigure* ApplicationManager::GetFigure(int x, int y) const
 {
-	//If a figure is found return a pointer to it.
-	//if this point (x,y) does not belong to any figure return NULL
-	//Add your code here to search for a figure given a point x,y	
-	//Remember that ApplicationManager only calls functions do NOT implement it.
 	Point p;
 	p.x = x;
 	p.y = y;
+
 	for (int i = FigCount - 1; i >= 0; i--)
 	{
 		if (FigList[i]->IsBelong(p))
@@ -170,6 +208,7 @@ CFigure* ApplicationManager::GetFigure(int x, int y) const
 			return FigList[i];
 		}
 	}
+
 	return NULL;
 }
 
@@ -186,48 +225,46 @@ CFigure* ApplicationManager::GetSelectedFig()
 	return SelectedFig;
 }
 
-bool ApplicationManager::SaveAll(const string & file_name)
+void ApplicationManager::SaveAll(ofstream& file)
 {
-	ofstream file(file_name , ios::out);
-
-	if (!file)
+	for (int i = 0; i < FigCount; i++)
 	{
-		return 0;
+		FigList[i]->Save(file);
 	}
+}
 
-	file << FigCount << '\n';
-	file << TranslateToInt(pOut->getCrntDrawColor()) << " " << TranslateToInt(pOut->getCrntFillColor()) << '\n';
 
+//Delete List Functions
+
+void ApplicationManager::DeleteFigure(CFigure* Fig)
+{
 	for(int i = 0 ; i < FigCount ; i++)
 	{
-		FigList[i] -> Save(file);
+		if(Fig -> GetID() == FigList[i] -> GetID())
+		{
+			DeletedFigs[DeletedCount++] = FigList[i];
+			FigList[i] = FigList[FigCount - 1];
+			FigList[FigCount - 1] = nullptr;
+			FigCount--;
+			break;
+		}
 	}
-
-	file.close();
-
-	return 1;
-
 }
 
-bool ApplicationManager::LoadAll(const string & file_name)
+void ApplicationManager::RestoreDeleted(CFigure* Fig)
 {
-	ifstream file(file_name, ios::in);
-
-	if (!file)
+	for (int i = 0; i < DeletedCount; i++)
 	{
-		return false;
+		if (Fig->GetID() == DeletedFigs[i]->GetID())
+		{
+			FigList[FigCount++] = DeletedFigs[i];
+			DeletedFigs[i] = DeletedFigs[DeletedCount - 1];
+			DeletedFigs[DeletedCount - 1] = nullptr;
+			DeletedCount--;
+			break;
+		}
 	}
-
-	int shapes_num , draw_color , fill_color;
-	char new_line;
-	file >> shapes_num >> new_line; 
-	file >> draw_color >> fill_color >> new_line;
-	pOut->PrintMessage(to_string(shapes_num) + to_string(draw_color) + to_string(fill_color));
-
 }
-
-
-
 
 
 //==================================================================================//
@@ -236,12 +273,51 @@ bool ApplicationManager::LoadAll(const string & file_name)
 
 void ApplicationManager::UpdateInterface() const
 {
+	pOut->ClearDrawArea();
 	for (int i = 0; i < FigCount; i++)
 		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+void ApplicationManager::FlushRedo()
+{
+	while(!RedoList.is_empty())
+	{
+		delete RedoList.pop();
+	}
+}
 
+void ApplicationManager::FlushUndo()
+{
+	while (!UndoList.is_empty())
+	{
+		delete UndoList.pop();
+	}
+}
+
+
+void ApplicationManager::UndoLastAction()
+{
+	Action* ActPtr = UndoList.pop();
+	if (ActPtr) 
+	{
+		ActPtr->undo();
+		RedoList.push(ActPtr);
+	}
+}
+
+void ApplicationManager::RedoLastAction()
+{
+	Action* ActPtr = RedoList.pop();
+	if(ActPtr)
+	{
+		ActPtr->redo();
+		UndoList.push(ActPtr);
+	}
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
 
 //Return a pointer to the Input Object
 Input* ApplicationManager::GetInput() const
@@ -255,6 +331,11 @@ Output* ApplicationManager::GetOutput() const
 	return pOut;
 }
 
+//Return number of figures
+int ApplicationManager::getFigCount() const
+{
+	return FigCount;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -263,6 +344,10 @@ ApplicationManager::~ApplicationManager()
 {
 	for (int i = 0; i < FigCount; i++)
 		delete FigList[i];
+
+	for (int i = 0; i < DeletedCount; i++)
+		delete DeletedFigs[i];
+
 	delete pIn;
 	delete pOut;
 }
