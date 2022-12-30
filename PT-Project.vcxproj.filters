@@ -145,12 +145,6 @@
     <ClCompile Include="CMUgraphicsLib\colors.cpp">
       <Filter>CMUgraphicsLib</Filter>
     </ClCompile>
-    <ClCompile Include="E:\project_phase2\Phase2 - Code F22\Phase2 - Code F22\Actions\ShowColors.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\project_phase2\Phase2 - Code F22\Phase2 - Code F22\Actions\ShowShapes.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Actions\AddRectangle.cpp" />
     <ClCompile Include="Figures\CSquare.cpp" />
     <ClCompile Include="Figures\CCircle.cpp" />
@@ -158,6 +152,21 @@
     <ClCompile Include="Actions\AddCircle.cpp" />
     <ClCompile Include="Actions\AddHexagon.cpp" />
     <ClCompile Include="Actions\AddSquare.cpp" />
+    <ClCompile Include="Actions\AddTriangle.cpp" />
+    <ClCompile Include="Figures\CTriangle.cpp" />
+    <ClCompile Include="Actions\SwitchToPlay.cpp" />
+    <ClCompile Include="Actions\ShowShapes.cpp" />
+    <ClCompile Include="Actions\ShowColors.cpp" />
+    <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\PickByShapesAndColors.cpp" />
+    <ClCompile Include="Actions\PickByShapes.cpp" />
+    <ClCompile Include="Actions\PickByColors.cpp" />
+    <ClCompile Include="Actions\Exit.cpp" />
+    <ClCompile Include="Actions\Move.cpp" />
+    <ClCompile Include="Actions\MoveByDragging.cpp" />
+    <ClCompile Include="Actions\ResizeByDragging.cpp" />
+    <ClCompile Include="Actions\ChangeDrawColor.cpp" />
+    <ClCompile Include="Actions\ChangeFillColor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -242,12 +251,6 @@
       <Filter>Application Manager</Filter>
     </ClInclude>
     <ClInclude Include="DEFS.h" />
-    <ClInclude Include="E:\project_phase2\Phase2 - Code F22\Phase2 - Code F22\Actions\ShowColors.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\project_phase2\Phase2 - Code F22\Phase2 - Code F22\Actions\ShowShapes.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Actions\AddRectangle.h" />
     <ClInclude Include="Figures\CSquare.h" />
     <ClInclude Include="Figures\CCircle.h" />
@@ -255,8 +258,24 @@
     <ClInclude Include="Actions\AddCircle.h" />
     <ClInclude Include="Actions\AddHexagon.h" />
     <ClInclude Include="Actions\AddSquare.h" />
+    <ClInclude Include="Actions\AddTriangle.h" />
+    <ClInclude Include="Figures\CTriangle.h" />
+    <ClInclude Include="Actions\SwitchToPlay.h" />
+    <ClInclude Include="Actions\ShowShapes.h" />
+    <ClInclude Include="Actions\ShowColors.h" />
+    <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\PickByShapesAndColors.h" />
+    <ClInclude Include="Actions\PickByShapes.h" />
+    <ClInclude Include="Actions\PickByColors.h" />
+    <ClInclude Include="Actions\Exit.h" />
+    <ClInclude Include="Actions\Move.h" />
+    <ClInclude Include="Actions\MoveByDragging.h" />
+    <ClInclude Include="Actions\ResizeByDragging.h" />
+    <ClInclude Include="Actions\ChangeDrawColor.h" />
+    <ClInclude Include="Actions\ChangeFillColor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="PT-Project.vcproj" />
   </ItemGroup>
 </Project>
