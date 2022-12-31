@@ -16,6 +16,8 @@ public:
 	virtual void PrintInfo(Output* pOut) const;
 	virtual bool IsBelong(Point p) const;
 	virtual void Displacment(Point p); //dicplace the coordinates of the figure
+	virtual void Resize(Point p); //resize the figure
+	virtual string GetFigureType() const;
 };
 
 #endif
