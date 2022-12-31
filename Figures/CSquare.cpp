@@ -10,18 +10,28 @@ CSquare::CSquare(Point Cntr, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 void CSquare::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen	
-	pOut->DrawSqr(Center, FigGfxInfo, Selected);
+	pOut->DrawSqr(Center,length, FigGfxInfo, Selected);
 }
 
 void CSquare::PrintInfo(Output* pOut) const
 {
-	pOut->PrintMessage("SQUARE  ID   " + to_string(ID) + "    Center (" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
+	pOut->PrintMessage("SQUARE  ID   " + to_string(ID) + "    Center (" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length  " + to_string(length));
 }
 
 void CSquare::Displacment(Point p) 
 {
 	Center.x = p.x;
 	Center.y = p.y;
+}
+
+void CSquare::Resize(Point p)
+{
+	length = abs(p.x - Center.x) / 2;
+}
+
+string CSquare::GetFigureType() const
+{
+	return "Square";
 }
 
 
