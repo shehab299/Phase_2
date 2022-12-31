@@ -48,3 +48,21 @@ void CTriangle::Displacment(Point p)
 	Corner1.x += DeltaX;
 	Corner1.y += DeltaY;
 }
+
+void CTriangle::Resize(Point p)
+{  
+	int d1 =dist(p,Corner1);
+	int d2 = dist(p, Corner2);
+	int d3 = dist(p, Corner3);
+	if ((d1<d2)&&(d1<d3))
+	Corner1 = p;
+	else if ((d2 <=d1) && (d2 <= d3))
+	Corner2 = p;
+	else 
+	Corner3 = p;
+}
+
+string CTriangle::GetFigureType() const
+{
+	return "Triangle";
+}
