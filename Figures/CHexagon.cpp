@@ -3,17 +3,17 @@
 CHexagon::CHexagon(Point cntr, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	Center = cntr;
-	length=120;
+	length=90;
 }
 
 void CHexagon::Draw(Output* pOut) const
 {
-	pOut->DrawHxg(Center, FigGfxInfo, Selected);
+	pOut->DrawHxg(Center,length, FigGfxInfo, Selected);
 }
 
 void CHexagon::PrintInfo(Output* pOut) const
 {
-	pOut->PrintMessage("HEXAGON ID   " + to_string(ID) + "Center(" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length" + to_string(length));
+	pOut->PrintMessage("HEXAGON ID   " + to_string(ID) + "    Center(" + to_string(Center.x) + "  ,  " + to_string(Center.y) + ")   side length   " + to_string(length));
 
 }
 
@@ -30,6 +30,16 @@ void CHexagon::Displacment(Point p)
 {
 	Center.x = p.x;
 	Center.y = p.y;
+}
+
+void CHexagon::Resize(Point p)
+{
+	length = dist(p, Center);
+}
+
+string CHexagon::GetFigureType() const
+{
+	return "Hexagon";
 }
 
 
