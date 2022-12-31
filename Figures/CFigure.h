@@ -11,6 +11,7 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	int ID;		//Each figure has an ID
+	bool hide;// check if the figure is clicked in playmode or not
 	/// Add more parameters if needed.
 
 public:
@@ -18,23 +19,28 @@ public:
 	CFigure(GfxInfo FigureGfxInfo);
 	void SetID(int id);
 	int GetID();
+	bool ishidden();
+	void SetHidden(bool h);
 	virtual void Displacment(Point p) =0; //dicplace the coordinates of the figure
 	void SetSelected(bool s);	//select/unselect the figure
 	virtual bool IsBelong(Point p) const = 0;	//check whether point is on fig
 	bool IsSelected();
 	GfxInfo GetGfxInfo();
+	int dist(Point, Point)const;
 	virtual void Draw(Output* pOut) const  = 0 ;		//Draw the figure
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
-	//string GetDrawClr();  //gets the the figure's drawing color
-	//string GetFillClr();  //gets the the figure's filling color																		
+	string GetDrawClr();  //gets the the figure's drawing color
+	string GetFillClr();  //gets the the figure's filling color	
+	virtual string GetFigureType() const = 0; // gets the figure's type
+	virtual void PrintInfo(Output* pOut)const = 0;	//print all figure info on the status bar
+	virtual void Resize(Point p) = 0; // resize the figure
+
 	//The following functions should be supported by the figure class
 	//It should be overridden by each inherited figure
 	//Decide the parameters that you should pass to each function	
 	//virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
-
-	virtual void PrintInfo(Output* pOut)const = 0;	//print all figure info on the status bar
 };
 
 #endif
