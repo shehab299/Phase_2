@@ -76,7 +76,6 @@ Output::Output()
 	PlayMenuItems[PLAY_SHAPE] = PATH_ICONS_PLAY + "byshape.jpg";
 	PlayMenuItems[PLAY_COLORNSHAPE] = PATH_ICONS_PLAY + "bycolornshape.jpg";
 	PlayMenuItems[PLAY_DRAW_MODE] = PATH_ICONS_PLAY + "draw.jpg";
-	PlayMenuItems[PLAY_EXIT] = PATH_ICONS_DRAW + "exit.jpg";
 
 
 	CreateDrawToolBar();
@@ -139,7 +138,7 @@ void Output::CreateAdditionalItemsBar(ADDIONAL_MODE mode) const
 	UI.Additional_Items_Mode = mode;
 	//draw the Bar
 	color fill_color = UI.ToolBarColor;
-	color draw_color = UI.DrawColor;
+	color draw_color = BLACK;
 
 	pWind->SetPen(draw_color, 1);
 	pWind->SetBrush(fill_color);
@@ -230,6 +229,11 @@ void Output::setIsfilled(bool b)
 	UI.isfilled = b;
 }
 
+bool Output::GetIsFilled()
+{
+	return UI.isfilled;
+}
+
 
 
 //======================================================================================//
@@ -281,9 +285,8 @@ void Output::DrawTriangle(Point P1, Point P2,Point p3, GfxInfo triGfxInfo, bool 
 
 }
 
-void Output::DrawSqr(Point P1, GfxInfo RectGfxInfo, bool selected) const
+void Output::DrawSqr(Point P1,int side, GfxInfo RectGfxInfo, bool selected) const
 {
-	int side = 120;
 	Point P2;
 	Point P3;
 	P2.x = P1.x - (side / 2);
@@ -361,9 +364,8 @@ void Output::CalcHxgVer(Point Pc, int XVer[], int YVer[], int NumVer, int side) 
 }
 
 
-void Output::DrawHxg(Point P1, GfxInfo RectGfxInfo, bool selected) const
+void Output::DrawHxg(Point P1,int side, GfxInfo RectGfxInfo, bool selected) const
 {
-	int side = 120;
 	const int VerNum = 6;
 	int VerX[VerNum];
 	int VerY[VerNum];
