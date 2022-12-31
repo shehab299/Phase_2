@@ -1,29 +1,32 @@
 #include <cmath>
 #include "ApplicationManager.h"
 //Shapes
-#include "Actions\ShowShapes.h"
-#include "Figures\CFigure.h"
-#include "Actions\AddRectangle.h"
-#include "Actions\AddSquare.h"
-#include"Actions\AddTriangle.h"
-#include "Actions\AddCircle.h"
-#include "Actions\AddHexagon.h"
+#include "Actions/ShowShapes.h"
+#include "Figures/CFigure.h"
+#include "Actions/AddRectangle.h"
+#include "Actions/AddSquare.h"
+#include"Actions/AddTriangle.h"
+#include "Actions/AddCircle.h"
+#include "Actions/AddHexagon.h"
 
 //PLayMode
-#include "Actions/SwitchToPlay.h"
-//#include "Actions/PickByShapes.h"
-//#include "Actions/PickByColors.h"
-//#include "Actions/PickByShapesAndColors.h"
+#include "Actions/PickByShapes.h"
+#include "Actions/PickByColors.h"
+#include "Actions/PickByShapesAndColors.h"
 
 //Colors actions
-#include "Actions\ShowColors.h"
 #include "Actions/ChangeFillColor.h"
 #include "Actions/ChangeDrawColor.h"
 
+//Switch actions
+#include "Actions/SwitchToPlay.h"
+#include"Actions/SwitchToDraw.h"
+
 //others actions
-#include "Actions\Select.h"
+#include "Actions/Select.h"
 #include "Actions/Move.h"
 #include "Actions/MoveByDragging.h"
+#include "Actions/ResizeByDragging.h"
 #include "Actions/Exit.h"
 
 //Constructor
@@ -39,6 +42,7 @@ ApplicationManager::ApplicationManager()
 	for(int i=0; i<MaxFigCount; i++)
 		FigList[i] = NULL;	
 	SelectedFig = NULL;
+
 }
 
 //==================================================================================//
@@ -90,14 +94,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAG:
 			pAct = new MoveByDragging(this);
 				break;
+
 		case FILL:
-			{ pAct = new ShowColors(this);
-			pAct1 = new ChangeFillColor(this);
+			{ pAct = new ChangeFillColor(this);
 			break;
 			}
+
 		case DCOLOR:
-			{ pAct = new ShowColors(this);
-			pAct1 = new ChangeDrawColor(this);
+			{ pAct = new ChangeDrawColor(this);
 			break;
 			}
 
@@ -105,21 +109,29 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Select(this);
 			break;
 
+		case RESIZE:
+			pAct = new ResizeByDragging(this);
+			break;
+
 		case TO_PLAY:
 			pAct = new SwitchToPlay(this);
 			break;
 
-		//case PCOLOR:
-		//	pAct = new PickByColors(this);
-		//	break;
+		case TO_DRAW:
+			pAct = new SwitchToDraw(this);
+			break;
 
-		//case PSHAPE:
-		//	pAct = new PickByShapes(this);
-		//	break;
-			/*
+		case PCOLOR:
+			pAct = new PickByColors(this);
+			break;
+
+		case PSHAPE:
+			pAct = new PickByShapes(this);
+			break;
+		
 		case PCOLORNSHAPE:
 			pAct = new PickByShapesAndColors(this);
-			break;*/
+			break;
 
 		case EXIT:
 			pAct = new Exit(this);
@@ -133,13 +145,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		if (pAct1 != NULL)
-		{
-			pAct1->Execute();//Execute
-			delete pAct1;	//You may need to change this line depending to your implementation
-			pAct1 = NULL;
-
-		}
 		delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
@@ -157,28 +162,6 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		pFig->SetID(FigCount);
 	}
 }
-/*void ApplicationManager::DeleteFigure(int ID)
-{
-	for (int i = ID; i < FigCount - 1; i++) {
-		FigList[i] = FigList[i + 1];
-		FigList[i]->SetID(i);
-	}
-	//Reduce FigCount by 1 and nullify the extra pointer (used to point at the deleted figure)
-	FigCount--;
-	FigList[FigCount] = NULL;
-
-	for (int i = 0; i < FigCount; i++)
-	{
-		if (FigList[i]==pFig)
-		{
-			delete FigList[i];
-			FigCount--;
-			FigList[i] = FigList[FigCount - 1];
-			FigList[--FigCount] = NULL;
-		}
-	}
-	}*/
-
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
@@ -191,6 +174,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	p.y = y;
 	for (int i = FigCount - 1; i >=0; i--)
 	{
+		if (!(FigList[i]->ishidden()))
 		if (FigList[i]->IsBelong(p))
 		{
 			return FigList[i];
@@ -210,9 +194,55 @@ int ApplicationManager::GetFigCount()
 {
 	return FigCount;
 }
+int ApplicationManager::GetFilledFigCout()
+{
+	int NoC = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->GetGfxInfo().isFilled) 
+				NoC++;
+	}
+	return NoC;
+}
+int ApplicationManager::GetSearchedFigCount(CFigure* Fig)
+{
+	int NoC = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+			if (FigList[i]->GetFigureType() == Fig->GetFigureType() )
+				NoC++;
+	}
+	return NoC;
+}
+int ApplicationManager::GetColoredFigCount(CFigure* Fig)
+{
+	int NoC = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if ((FigList[i]->GetFigureType() == Fig->GetFigureType())&&(FigList[i]->GetFillClr()== Fig->GetFillClr()))
+			NoC++;
+	}
+	return NoC;
+}
 CFigure* ApplicationManager::RetFig(int idx)
 {
 	return FigList[idx];
+}
+int ApplicationManager::GetColorsCount(color c)
+{
+	int NoC=0;
+	for (int i = 0; i < FigCount; i++)
+	{
+			if (FigList[i]->GetGfxInfo().isFilled)
+				if ((FigList[i]->GetGfxInfo().FillClr) == c)
+					NoC++;
+	}
+	return NoC;
+}
+void ApplicationManager::ShowAllFigure()
+{
+	for (int i = 0; i < FigCount; i++)
+		FigList[i]->SetHidden(0);
 }
 //==================================================================================//
 //							Interface Management Functions							//
@@ -222,8 +252,11 @@ CFigure* ApplicationManager::RetFig(int idx)
 void ApplicationManager::UpdateInterface() const
 {
 	pOut->ClearDrawArea();
-	for(int i=0; i<FigCount; i++)
-		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+	for (int i = 0; i < FigCount; i++)
+	{	if(!(FigList[i]->ishidden()))
+			FigList[i]->Draw(pOut);
+	}
+	//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input
