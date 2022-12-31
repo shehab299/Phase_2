@@ -1,17 +1,18 @@
 #pragma once
 #include "Action.h"
 #include"../Figures/CFigure.h"
-class PickByShapes :  public Action
+class PickByShapesAndColors : public Action
 {
+
 private:
 	CFigure* Fig;
-	Point P;
 	int  rand_fig_no, NoPickedFig, flscntr, trucntr;
-	void PrintScore(int);
+	Point P;
 public:
-	PickByShapes(ApplicationManager* pApp);
+	PickByShapesAndColors(ApplicationManager* pApp);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 
 };
+
 
