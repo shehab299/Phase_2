@@ -42,17 +42,21 @@ void PickByColors::Execute()
 					trucntr++;
 					pOut->PrintMessage("True :)");
 					NoPickedFig--;
+					ClickedFigure->SetHidden(true);
 				}
 				else
 				{
 					flscntr++;
 					pOut->PrintMessage("False T-T");
+					ClickedFigure->SetHidden(true);
 				}
 			}
 		}
 		if (NoPickedFig == 0)
+		{
 			pOut->PrintMessage("Congratulations!!! you won <3");
-
+			pManager->ShowAllFigure();
+		}
 		pManager->UpdateInterface();
 		Sleep(1000);
 		pOut->PrintMessage("Your score is : " + to_string(trucntr) + " True, and " + to_string(flscntr) + " False.");
