@@ -2,7 +2,7 @@
 #include "..\ApplicationManager.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-#include "..\Figures\CFigure.h"
+
 PickByShapes::PickByShapes(ApplicationManager* pApp) : Action(pApp)
 {
 	flscntr = 0;
@@ -40,17 +40,21 @@ void PickByShapes::Execute()
 					trucntr++;
 					pOut->PrintMessage("True :)");
 					NoPickedFig--;
+					ClickedFig->SetHidden(1);
 				}
 				else
 				{
+					ClickedFig->SetHidden(1);
 					flscntr++;
 					pOut->PrintMessage("False T-T");
 				}
 			}
 		}
 		if (NoPickedFig == 0)
+		{
 			pOut->PrintMessage("Congratulations!!! you won <3");
-
+			pManager->ShowAllFigure();
+		}
 		pManager->UpdateInterface();
 		Sleep(1000);
 		pOut->PrintMessage("Your score is : " + to_string(trucntr) + " True, and " + to_string(flscntr) + " False.");
