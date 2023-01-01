@@ -4,29 +4,25 @@
 #include "..\GUI\Output.h"
 #include"Move.h"
 
-MoveByDragging::MoveByDragging(ApplicationManager* pApp):Action(pApp)
+MoveByDragging::MoveByDragging(ApplicationManager* pApp) :Action(pApp)
 {
 }
 
 void MoveByDragging::ReadActionParameters()
 {
-	Point pc;
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput(); 
-	pOut->PrintMessage("Move By Dragging Action:Please drag the selected figure");
-	while (pIn->GetPointDragged(pc.x,pc.y)== BUTTON_UP)
+	Input* pIn = pManager->GetInput();
+	pOut->PrintMessage("Move By Dragging Action:Please drag the selected figure from a point inside it");
+	while (pIn->GetPointDragged(p.x, p.y) == BUTTON_UP)
 	{
-		while (pIn->GetPointDragged(pc.x, pc.y) == BUTTON_DOWN)
+		if ((pManager->GetFigure(p.x, p.y)) == (pManager->GetSelectedFig()))
+		while (pIn->GetPointDragged(p.x, p.y) == BUTTON_DOWN)
 		{
-
-			pManager->GetSelectedFig()->Displacment(pc);
+			pManager->GetSelectedFig()->Displacment(p);
+			Sleep(10);
 			pManager->UpdateInterface();
 		}
 	}
-		//while (buttonstate==BUTTON_DOWN) 
-	//{
-
-	//}
 	pOut->ClearStatusBar();
 }
 
@@ -40,5 +36,4 @@ void MoveByDragging::Execute()
 	}
 	else
 		pOut->PrintMessage("Please select a figure first");
-
 }
