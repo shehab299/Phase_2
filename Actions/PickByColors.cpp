@@ -42,13 +42,13 @@ void PickByColors::Execute()
 					trucntr++;
 					pOut->PrintMessage("True :)");
 					NoPickedFig--;
-					ClickedFigure->SetHidden(true);
+					ClickedFig->SetHidden(true);
 				}
 				else
 				{
 					flscntr++;
 					pOut->PrintMessage("False T-T");
-					ClickedFigure->SetHidden(true);
+					ClickedFig->SetHidden(true);
 				}
 			}
 		}
