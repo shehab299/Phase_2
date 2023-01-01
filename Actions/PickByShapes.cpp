@@ -1,30 +1,32 @@
-#include "PickByShapes.h"
+#include "PickByShapesAndColors.h"
 #include "..\ApplicationManager.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-
-PickByShapes::PickByShapes(ApplicationManager* pApp) : Action(pApp)
+PickByShapesAndColors::PickByShapesAndColors(ApplicationManager* pApp) : Action(pApp)
 {
 	flscntr = 0;
 	trucntr = 0;
 }
 
-void PickByShapes::ReadActionParameters()
+void PickByShapesAndColors::ReadActionParameters()
 {
-
 	Output* pOut = pManager->GetOutput();
+	do
+	{
 		rand_fig_no = rand() % pManager->GetFigCount();
 		Fig = pManager->RetFig(rand_fig_no);
-		NoPickedFig = pManager->GetSearchedFigCount(Fig);
-	pOut->PrintMessage("pick all " + Fig->GetFigureType() + "s.");
+	} while (!(Fig->GetGfxInfo().isFilled));
+	NoPickedFig = pManager->GetColoredFigCount(Fig);
+	pOut->PrintMessage("pick all " + Fig->GetFillClr() + " "+ Fig->GetFigureType()+"s.");
 }
 
-void PickByShapes::Execute()
+void PickByShapesAndColors::Execute()
 {
+
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	if (!pManager->GetFigCount())
-		pOut->PrintMessage("You must draw at least a  figure first!!!!");
+	if (!pManager->GetFilledFigCout())
+		pOut->PrintMessage("You must draw a filled figure at least !!!");
 	else
 	{
 		ReadActionParameters();
@@ -35,12 +37,12 @@ void PickByShapes::Execute()
 			ClickedFig = pManager->GetFigure(P.x, P.y);
 			if (ClickedFig != NULL)
 			{
-				if (Fig->GetFigureType() == ClickedFig->GetFigureType())
+				if ((Fig->GetFillClr() == ClickedFig->GetFillClr()) && (ClickedFig->GetGfxInfo().isFilled) && ( Fig->GetFigureType() == ClickedFig->GetFigureType() ) )
 				{
+					ClickedFig->SetHidden(1);
 					trucntr++;
 					pOut->PrintMessage("True :)");
 					NoPickedFig--;
-					ClickedFig->SetHidden(1);
 				}
 				else
 				{
@@ -52,8 +54,8 @@ void PickByShapes::Execute()
 		}
 		if (NoPickedFig == 0)
 		{
-			pOut->PrintMessage("Congratulations!!! you won <3");
 			pManager->ShowAllFigure();
+			pOut->PrintMessage("Congratulations!!! you won <3");
 		}
 		pManager->UpdateInterface();
 		Sleep(1000);
