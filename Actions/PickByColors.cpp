@@ -51,6 +51,9 @@ void PickByColors::Execute()
 					ClickedFig->SetHidden(true);
 				}
 			}
+			Sleep(500);
+			pManager->UpdateInterface();
+			pOut->PrintMessage("Your score is : " + to_string(trucntr) + " True, and " + to_string(flscntr) + " False.");
 		}
 		if (NoPickedFig == 0)
 		{
