@@ -2,7 +2,6 @@
 #include "..\ApplicationManager.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-#include "..\Figures\CFigure.h"
 PickByShapesAndColors::PickByShapesAndColors(ApplicationManager* pApp) : Action(pApp)
 {
 	flscntr = 0;
@@ -40,20 +39,27 @@ void PickByShapesAndColors::Execute()
 			{
 				if ((Fig->GetFillClr() == ClickedFig->GetFillClr()) && (ClickedFig->GetGfxInfo().isFilled) && ( Fig->GetFigureType() == ClickedFig->GetFigureType() ) )
 				{
+					ClickedFig->SetHidden(1);
 					trucntr++;
 					pOut->PrintMessage("True :)");
 					NoPickedFig--;
 				}
 				else
 				{
+					ClickedFig->SetHidden(1);
 					flscntr++;
 					pOut->PrintMessage("False T-T");
 				}
 			}
+			Sleep(500);
+			pManager->UpdateInterface();
+			pOut->PrintMessage("Your score is : " + to_string(trucntr) + " True, and " + to_string(flscntr) + " False.");
 		}
 		if (NoPickedFig == 0)
+		{
+			pManager->ShowAllFigure();
 			pOut->PrintMessage("Congratulations!!! you won <3");
-
+		}
 		pManager->UpdateInterface();
 		Sleep(1000);
 		pOut->PrintMessage("Your score is : " + to_string(trucntr) + " True, and " + to_string(flscntr) + " False.");
