@@ -1,32 +1,30 @@
-#include "PickByShapesAndColors.h"
+#include "PickByShapes.h"
 #include "..\ApplicationManager.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-PickByShapesAndColors::PickByShapesAndColors(ApplicationManager* pApp) : Action(pApp)
+
+PickByShapes::PickByShapes(ApplicationManager* pApp) : Action(pApp)
 {
 	flscntr = 0;
 	trucntr = 0;
 }
 
-void PickByShapesAndColors::ReadActionParameters()
+void PickByShapes::ReadActionParameters()
 {
+
 	Output* pOut = pManager->GetOutput();
-	do
-	{
 		rand_fig_no = rand() % pManager->GetFigCount();
 		Fig = pManager->RetFig(rand_fig_no);
-	} while (!(Fig->GetGfxInfo().isFilled));
-	NoPickedFig = pManager->GetColoredFigCount(Fig);
-	pOut->PrintMessage("pick all " + Fig->GetFillClr() + " "+ Fig->GetFigureType()+"s.");
+		NoPickedFig = pManager->GetSearchedFigCount(Fig);
+	pOut->PrintMessage("pick all " + Fig->GetFigureType() + "s.");
 }
 
-void PickByShapesAndColors::Execute()
+void PickByShapes::Execute()
 {
-
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	if (!pManager->GetFilledFigCout())
-		pOut->PrintMessage("You must draw a filled figure at least !!!");
+	if (!pManager->GetFigCount())
+		pOut->PrintMessage("You must draw at least a  figure first!!!!");
 	else
 	{
 		ReadActionParameters();
@@ -37,12 +35,12 @@ void PickByShapesAndColors::Execute()
 			ClickedFig = pManager->GetFigure(P.x, P.y);
 			if (ClickedFig != NULL)
 			{
-				if ((Fig->GetFillClr() == ClickedFig->GetFillClr()) && (ClickedFig->GetGfxInfo().isFilled) && ( Fig->GetFigureType() == ClickedFig->GetFigureType() ) )
+				if (Fig->GetFigureType() == ClickedFig->GetFigureType())
 				{
-					ClickedFig->SetHidden(1);
 					trucntr++;
 					pOut->PrintMessage("True :)");
 					NoPickedFig--;
+					ClickedFig->SetHidden(1);
 				}
 				else
 				{
@@ -51,11 +49,15 @@ void PickByShapesAndColors::Execute()
 					pOut->PrintMessage("False T-T");
 				}
 			}
+			Sleep(500);
+			pManager->UpdateInterface();
+			pOut->PrintMessage("Your score is : " + to_string(trucntr) + " True, and " + to_string(flscntr) + " False.");
+
 		}
 		if (NoPickedFig == 0)
 		{
-			pManager->ShowAllFigure();
 			pOut->PrintMessage("Congratulations!!! you won <3");
+			pManager->ShowAllFigure();
 		}
 		pManager->UpdateInterface();
 		Sleep(1000);
